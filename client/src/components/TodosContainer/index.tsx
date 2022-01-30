@@ -1,15 +1,17 @@
 import React from 'react';
-import NewTodo from '../NewTodo';
+import TodoInput from '../TodoInput';
 import TodoLists from '../TodoLists';
 import { Wrapper } from './styles';
 
-const TodosContainter: React.FC = () => {
+//New todo item input field and list fields for 
+//existing todos items bundled together 
+const TodosContainer: React.FC = () => {
     return (
         <Wrapper>
-            <NewTodo />
+            <TodoInput />
             <TodoLists />
         </Wrapper>
     );
 };
 
-export default TodosContainter;
+export default TodosContainer;

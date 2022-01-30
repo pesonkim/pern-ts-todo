@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { useTodoContext } from '../../context/TodoContext';
-import { InputWrapper, InputHeader, InputForm, InputField, InputButton, DisabledButton } from './styles';
+import {
+    InputWrapper,
+    InputHeader,
+    InputForm,
+    InputField,
+    InputButton,
+    DisabledButton,
+} from './styles';
 
-const NewTodo: React.FC = () => {
+//Input field and handlers for adding new todo items
+const TodoInput: React.FC = () => {
     const todoContext = useTodoContext()!;
     const [inputText, setInputText] = useState('');
 
@@ -34,4 +42,4 @@ const NewTodo: React.FC = () => {
     );
 };
 
-export default NewTodo;
+export default TodoInput;

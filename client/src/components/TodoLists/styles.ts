@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+//Entire three list column section
 export const ListSection = styled.section`
     display: flex;
     margin: 20px auto;
@@ -9,6 +10,7 @@ export const ListSection = styled.section`
     padding-bottom: 10px;
 `;
 
+//Individual todo item list
 export const ListColumn = styled.div`
     background-color: #e2e4e6;
     display: flex;
@@ -25,6 +27,7 @@ export const ListTitle = styled.h2`
     font-size: 20px;
 `;
 
+//ul element inside column container
 export const StyledList = styled.ul`
     display: flex;
     flex-direction: column;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+//Navbar/header component
 export const AppHeader = styled.header`
     background-color: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(5px);
@@ -14,6 +15,7 @@ export const AppHeader = styled.header`
     box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
 `;
 
+//Spacing for header fields
 export const HeaderSection = styled.section`
     position: relative;
     display: flex;
@@ -23,6 +25,7 @@ export const HeaderSection = styled.section`
     margin: 0 20px;
 `;
 
+//Logged in username message 
 export const UserDiv = styled.div`
     border: none;
     border-radius: 10px;
@@ -30,6 +33,12 @@ export const UserDiv = styled.div`
     cursor: default;
 `;
 
+//Message field for database connection error cases
+export const ErrorDiv = styled(UserDiv)`
+    color: red;
+`;
+
+//Logout button
 export const LogoutDiv = styled.div`
     position: absolute;
     color: #fff;

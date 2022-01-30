@@ -55,6 +55,7 @@ export const InputButton = styled.button`
     }
 `;
 
+//Disabled submit button if input value = ''
 export const DisabledButton = styled(InputButton)`
     background-color: #cbd5e0;
     cursor: default;

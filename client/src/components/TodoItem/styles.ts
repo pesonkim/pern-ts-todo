@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-export const ListItem = styled.li`
+//Todo item <li> element inside parent column <ul>
+export const TodoItem = styled.li`
     position: relative;
     font-size: 15px;
     background-color: #fff;
@@ -10,6 +11,7 @@ export const ListItem = styled.li`
     word-wrap: break-word;
     hyphens: auto;
     overflow-wrap: break-word;
+    word-break: break-word;
     overflow: hidden;
     cursor: grab;
     transition: all 0.3s ease;
@@ -19,6 +21,8 @@ export const ListItem = styled.li`
     }
 `;
 
+//Todo item delete button, only visible/clickable when hovering
+//over items and not dragging them
 export const DeleteButton = styled.button`
     position: absolute;
     display: none;
@@ -33,11 +37,11 @@ export const DeleteButton = styled.button`
     color: #fff;
     background-color: #e53e3e;
 
-    ${ListItem}:hover & {
+    ${TodoItem}:hover & {
         display: block;
     }
 
-    ${ListItem}:active & {
+    ${TodoItem}:active & {
         display: none;
     }
 

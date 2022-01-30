@@ -8,8 +8,10 @@ import {
     InputField,
     InputButton,
     DisabledButton,
-} from '../NewTodo/styles';
+} from '../TodoInput/styles';
 
+//Login/choose username prompt, repurposed styling
+//from TodoInput component
 const LoginPrompt: React.FC = () => {
     const todoContext = useTodoContext()!;
     const [inputText, setInputText] = useState('');
