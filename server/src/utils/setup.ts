@@ -1,12 +1,13 @@
 import { Pool } from 'pg';
 import { exit } from 'process';
-import { DB_HOST, DB_NAME, DB_USER, DB_PW } from './config';
+import { DB_HOST, DB_NAME, DB_USER, DB_PW, DB_PORT } from './config';
 
 const setupDb = async () => {
     const init = new Pool({
         host: DB_HOST,
         user: DB_USER,
         password: DB_PW,
+        port: DB_PORT
     });
 
     init.connect((err, client, release) => {
@@ -38,6 +39,7 @@ const setupDb = async () => {
         user: DB_USER,
         password: DB_PW,
         database: DB_NAME,
+        port: DB_PORT
     });
 
     pool.connect((err, client, release) => {
@@ -53,6 +55,7 @@ const setupDb = async () => {
         client.query(
             `CREATE TABLE todo(
     id SERIAL PRIMARY KEY NOT NULL,
+    username varchar(50),
     task text,
     status task_status DEFAULT 'todo'
 );`,

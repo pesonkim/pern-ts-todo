@@ -4,7 +4,10 @@
   "description": "pern todo app with typescript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "cd client && npm i && cd ../server && npm i",
+    "setup": "cd server && npm run setup",
+    "build": "cd server && npm run build",
+    "start": "cd server && npm start"
   },
   "author": "pesonkim@gmail.com",
   "license": "ISC"

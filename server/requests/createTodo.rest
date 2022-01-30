@@ -1,6 +1,0 @@
-POST http://localhost:3000/api/todo/ HTTP/1.1
-content-type: application/json
-
-{
-    "task": "move on to react soon after this"
-}

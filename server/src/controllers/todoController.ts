@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { pool } from '../utils/db';
+import jsonwebtoken from 'jsonwebtoken';
 
 enum TodoStatus {
     TODO,
@@ -9,6 +10,7 @@ enum TodoStatus {
 }
 
 type Todo = {
+    user: string;
     id: number;
     task: string;
     status: TodoStatus;
@@ -16,10 +18,17 @@ type Todo = {
 
 //GET
 export const getTodos = asyncHandler(async (req: Request, res: Response): Promise<any> => {
+    const authorization = req.get('authorization')!;
+    const user = jsonwebtoken.verify(authorization.substring(7), 'Secret');
+
+    if (!user) {
+        return res.status(401).send({ error: 'Token error' });
+    }
+
     const client = await pool.connect();
 
-    const sql = 'SELECT * FROM todo;';
-    const { rows } = await client.query(sql);
+    const sql = 'SELECT * FROM todo WHERE username=$1 ORDER BY id;';
+    const { rows } = await client.query(sql, [user]);
     const todos: Todo[] = rows;
 
     client.release();
@@ -29,16 +38,21 @@ export const getTodos = asyncHandler(async (req: Request, res: Response): Promis
 
 //POST
 export const createTodo = asyncHandler(async (req: Request, res: Response): Promise<any> => {
+    const authorization = req.get('authorization')!;
+    const user = jsonwebtoken.verify(authorization.substring(7), 'Secret');
+
     const task = (req.body as { task: string }).task;
 
-    if (!task || task === '') {
+    if (!user) {
+        return res.status(401).send({ error: 'Token error' });
+    } else if (!task || task === '') {
         return res.status(400).end();
     }
 
     const client = await pool.connect();
 
-    const sql = 'INSERT INTO todo(task) VALUES($1) RETURNING *;';
-    const { rows } = await client.query(sql, [task]);
+    const sql = 'INSERT INTO todo(task, username) VALUES($1, $2) RETURNING *;';
+    const { rows } = await client.query(sql, [task, user]);
     const newTodo: Todo = rows[0];
 
     client.release();
@@ -50,13 +64,12 @@ export const createTodo = asyncHandler(async (req: Request, res: Response): Prom
 export const updateTodo = asyncHandler(
     async (req: Request<{ id: string }>, res: Response): Promise<any> => {
         const todoId = req.params.id;
-        const updatedTask = (req.body as { task: string }).task;
         const updatedStatus = (req.body as { status: string }).status;
 
         const client = await pool.connect();
 
-        const sql = 'UPDATE todo SET task=$1, status=$2 WHERE id=$3 RETURNING *;';
-        const { rows } = await client.query(sql, [updatedTask, updatedStatus, todoId]);
+        const sql = 'UPDATE todo SET status=$1 WHERE id=$2 RETURNING *;';
+        const { rows } = await client.query(sql, [updatedStatus, todoId]);
         const updatedTodo: Todo = rows[0];
 
         client.release();
@@ -72,18 +85,19 @@ export const updateTodo = asyncHandler(
 //DELETE:id
 export const deleteTodo = asyncHandler(
     async (req: Request<{ id: string }>, res: Response): Promise<any> => {
-    const todoId = req.params.id;
+        const todoId = req.params.id;
 
-    const client = await pool.connect();
+        const client = await pool.connect();
 
-    const sql = 'DELETE FROM todo WHERE id=$1 RETURNING *;';
-    const { rowCount } = await client.query(sql, [todoId]);
+        const sql = 'DELETE FROM todo WHERE id=$1 RETURNING *;';
+        const { rowCount } = await client.query(sql, [todoId]);
 
-    client.release();
+        client.release();
 
-    if (rowCount) {
-        return res.status(200).end();
-    } else {
-        return res.status(400).end();
+        if (rowCount) {
+            return res.status(200).end();
+        } else {
+            return res.status(400).end();
+        }
     }
-});
+);

@@ -17,6 +17,7 @@ const setupDb = () => __awaiter(void 0, void 0, void 0, function* () {
         host: config_1.DB_HOST,
         user: config_1.DB_USER,
         password: config_1.DB_PW,
+        port: config_1.DB_PORT
     });
     init.connect((err, client, release) => {
         if (err) {
@@ -42,6 +43,7 @@ const setupDb = () => __awaiter(void 0, void 0, void 0, function* () {
         user: config_1.DB_USER,
         password: config_1.DB_PW,
         database: config_1.DB_NAME,
+        port: config_1.DB_PORT
     });
     pool.connect((err, client, release) => {
         if (err) {
@@ -55,6 +57,7 @@ const setupDb = () => __awaiter(void 0, void 0, void 0, function* () {
         });
         client.query(`CREATE TABLE todo(
     id SERIAL PRIMARY KEY NOT NULL,
+    username varchar(50),
     task text,
     status task_status DEFAULT 'todo'
 );`, (err, result) => {

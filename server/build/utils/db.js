@@ -8,4 +8,5 @@ exports.pool = new pg_1.Pool({
     user: config_1.DB_USER,
     password: config_1.DB_PW,
     database: config_1.DB_NAME,
+    port: config_1.DB_PORT
 });
