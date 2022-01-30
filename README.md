@@ -4,7 +4,7 @@
 - Small drag-and-drop todo app and a learning experience with PERN stack and TypeScript specifically.
 -  Features a simple Trello-like task management board for personal todo items, and a crude authentication for testing the app under different usernames. The state of todo items are linked to usernames, so you can continue any specific session by reusing the same name later. 
 
-### [Live demo on Heroku](https://pern-ts-todo.herokuapp.com/todo/)
+### [Live demo on Heroku](https://pern-ts-todo.herokuapp.com/)
 
 
 ## Stack
