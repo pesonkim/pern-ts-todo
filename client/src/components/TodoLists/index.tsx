@@ -33,6 +33,7 @@ const TodoLists: React.FC = () => {
     //dragged todo item id from event object 'dataTransfer' method. Clears
     //remaining color highlights and calls for move handler in todoContext.
     const dragDrop = (event: React.DragEvent) => {
+        event.preventDefault();
         const newStatus = (event.currentTarget as HTMLElement).id as TodoStatus;
         const todoId = parseInt(event.dataTransfer!.getData('text/plain'));
         const id = event.currentTarget as HTMLElement;
